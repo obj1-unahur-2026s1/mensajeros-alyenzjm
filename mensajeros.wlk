@@ -1,7 +1,7 @@
 import vehiculos.*
 
 object roberto {
-    var pesoRoberto = 90
+    var pesoRoberto = 100
     var vehiculo = bicicleta
 
     method puedeLlamar() = false

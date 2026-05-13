@@ -3,7 +3,7 @@ object bicicleta {
 }
 
 object camion {
-    var acoplado = 1
+    var acoplado = 2
 
     method peso() = 500 * acoplado
     

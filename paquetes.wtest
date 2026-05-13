@@ -1,0 +1,64 @@
+import empresa.*
+import vehiculos.*
+import destinos.*
+import mensajeros.*
+import programa.*
+describe "Primera parte tests" {
+  test "Que roberto (90kg) puede llevar un paquete que está pago en un camión que tiene un acoplado" {
+    roberto.cambiarPeso(90)
+    roberto.cambiarVehiculo(camion)
+    camion.cambiarAcoplado(1)
+    paquete.cambiarEstaPago(true)
+    assert.equals(true, paquete.puedeSerEntregado(roberto, puenteBrooklyn))
+  }
+
+  test "Que neo con crédito no puede llevar un paquete que no está pago a la matrix" {
+    neo.cambiarSaldo(true)
+    paquete.cambiarEstaPago(false)
+    assert.equals(false, paquete.puedeSerEntregado(neo, laMatrix))
+  }
+}
+
+describe "Segunda parte tests" {
+  test "Contatamos un mensajero" {
+    empresaMensajeria.despedirTodos()
+    empresaMensajeria.contratar(chuckNorris)
+    assert.equals(true, empresaMensajeria.mensajeroContratado(chuckNorris))
+  }
+
+  test "Despedimos un mensajero" {
+    empresaMensajeria.despedirTodos()
+    empresaMensajeria.contratar(neo)
+    empresaMensajeria.despedir(neo)
+    assert.equals(false, empresaMensajeria.mensajeroContratado(neo))
+  }
+
+  test "Despedimos a todos" {
+    empresaMensajeria.contratar(neo)
+    empresaMensajeria.despedirTodos()
+    assert.equals(true, empresaMensajeria.sinEmpleados())
+  }
+
+  test "Analizar si la mensajeria es grande (si tiene mas de dos mensajeros)" {
+    empresaMensajeria.despedirTodos()
+    assert.equals(false, empresaMensajeria.esGrande())
+    empresaMensajeria.contratar(neo)
+    empresaMensajeria.contratar(chuckNorris)
+    assert.equals(false, empresaMensajeria.esGrande())
+    empresaMensajeria.contratar(roberto)
+    assert.equals(true, empresaMensajeria.esGrande())
+  }
+
+  test "Consultar si el paquete puede ser entregado por el primer empleado de la la empresa de mensajería" {
+    empresaMensajeria.despedirTodos()
+    empresaMensajeria.contratar(roberto)
+    assert.equals(false, empresaMensajeria.puedeSerEntregadoPorElPrimerMensajero(laMatrix))
+  }
+
+  test "Saber el peso del último mensajero de la empresa" {
+    empresaMensajeria.despedirTodos()
+    empresaMensajeria.contratar(roberto)
+    empresaMensajeria.contratar(chuckNorris)
+    assert.equals(80, empresaMensajeria.pesoUltimoMensajero())
+  }
+}

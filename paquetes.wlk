@@ -1,5 +1,5 @@
 object paquete {
-    var estaPago = true
+    var estaPago = false
 
     method puedeSerEntregado(unMensajero, unDestino) = 
             unDestino.puedeLlegar(unMensajero) && estaPago
